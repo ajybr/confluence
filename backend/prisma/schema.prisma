@@ -1,13 +1,12 @@
 generator client {
   provider = "prisma-client"
-  binaryTargets = ["windows", "debian-openssl-1.1.x", "native"]
-  engineType = "binary"
+  // binaryTargets = ["windows", "debian-openssl-1.1.x", "native"]
+  // engineType = "binary"
   output = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model User {
