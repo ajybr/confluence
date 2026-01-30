@@ -1,8 +1,6 @@
 generator client {
   provider = "prisma-client"
-  // binaryTargets = ["windows", "debian-openssl-1.1.x", "native"]
-  // engineType = "binary"
-  output = "../src/generated/prisma"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -13,26 +11,26 @@ model User {
   id             String            @id @default(uuid())
   username       String            @unique
   password       String
+  isDeleted      Boolean           @default(false)
+  bio            String
+  profilePicture String?
   messages       Message[]
   reactions      MessageReaction[]
   viewedMessages MessageView[]
-  bio            String
-  rooms          Room[]            @relation("Membership")
   createdRooms   Room[]            @relation("Creator")
-  isDeleted      Boolean           @default(false)
-  profilePicture String?
+  rooms          Room[]            @relation("Membership")
 }
 
 model Room {
   id             String    @id @default(cuid())
   roomName       String
-  description    String
   createdAt      DateTime  @default(now())
-  messages       Message[]
-  users          User[]    @relation("Membership")
   createdById    String
-  createdBy      User      @relation("Creator", fields: [createdById], references: [id])
+  description    String
   profilePicture String?
+  messages       Message[]
+  createdBy      User      @relation("Creator", fields: [createdById], references: [id])
+  users          User[]    @relation("Membership")
 }
 
 model Message {

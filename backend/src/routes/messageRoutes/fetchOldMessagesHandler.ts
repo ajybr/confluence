@@ -1,12 +1,12 @@
-import { Request, RequestHandler, Response } from "express";
+import { RequestHandler } from "express";
 import prisma from "../../config/prisma";
 
-const fetchOldMessagesHandler: RequestHandler = async (
-  req: Request,
-  res: Response,
+const fetchOldMessagesHandler: RequestHandler<{roomId: string}> = async (
+  req ,
+  res,
 ) => {
   try {
-    const roomId = req.params.roomId;
+    const roomId =  req.params.roomId;
     const userId = req.user?.userId;
 
     if (!roomId) {

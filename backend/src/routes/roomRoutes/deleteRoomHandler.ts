@@ -1,8 +1,8 @@
-import { Request, RequestHandler, Response } from "express"
+import { Request, Response } from "express"
 import prisma from "../../config/prisma"
 
-export const deleteRoomHandler: RequestHandler = async (req: Request, res: Response) => {
-  const roomId = req.params.roomId
+export const deleteRoomHandler = async (req: Request<{ roomId: string }> , res: Response) => {
+  const roomId =  req.params.roomId
   const userId = req.user?.userId
 
   if(!userId) {
@@ -16,9 +16,7 @@ export const deleteRoomHandler: RequestHandler = async (req: Request, res: Respo
   const userIsOwner = await prisma.room.findFirst({
     where: {
       id: roomId,
-      createdBy: {
-        id: userId
-      }
+      createdById: userId
     }
   })
 

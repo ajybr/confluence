@@ -1,24 +1,27 @@
-import { Request, RequestHandler, Response } from "express"
-import prisma from "../../config/prisma"
+import { Request, Response } from "express";
+import prisma from "../../config/prisma";
 
 //Get users in a room
-const getUsersInRoomHandler: RequestHandler = async (req: Request, res: Response) => {
+const getUsersInRoomHandler = async (
+  req: Request<{ roomId: string }>,
+  res: Response,
+) => {
   try {
-    const roomId = req.params.roomId
+    const roomId = req.params.roomId;
     if (await prisma.room.findFirst({ where: { id: roomId } })) {
       const users = await prisma.user.findMany({
         where: {
-          rooms: { some: { id: roomId } }
-        }
-      })
-      res.status(200).json(users)
-      return
+          rooms: { some: { id: roomId } },
+        },
+      });
+      res.status(200).json(users);
+      return;
     }
-    res.status(404).json({ errMes: "room does not exist!" })
+    res.status(404).json({ errMes: "room does not exist!" });
   } catch (e) {
-    console.error(e)
-    res.status(500).json({ errMes: "Error Fetching Users in Room" })
+    console.error(e);
+    res.status(500).json({ errMes: "Error Fetching Users in Room" });
   }
-}
+};
 
-export default getUsersInRoomHandler
+export default getUsersInRoomHandler;
