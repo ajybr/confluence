@@ -1,5 +1,5 @@
 import { axiosInstance } from "../config/axiosInstance";
-import { CreateMessagePayload } from "../hooks/useCreateMessage";
+import { CreateMessagePayload } from "../types/message";
 
 const createMessage = async (payload: CreateMessagePayload) => {
   const response = await axiosInstance.post(

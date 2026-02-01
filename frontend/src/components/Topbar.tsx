@@ -1,9 +1,9 @@
 import { useState } from "react";
 import useRoomStore from "../store/useRoomStore";
-import InviteIcon from "../utils/InviteIcon";
 import LeaveRoomIcon from "../utils/LeaveRoomIcon";
 import MenuIcon from "../utils/MenuIcon";
 import useLeaveRoom from "../hooks/useLeaveRoom";
+import InviteButton from "./InviteButton";
 
 const Topbar = () => {
   const selectedRoom = useRoomStore((state) => state.selectedRoom);
@@ -32,12 +32,7 @@ const Topbar = () => {
 
       {selectedRoom ? (
         <div className="flex items-center space-x-2">
-          <div className="group flex items-center space-x-2 cursor-pointer">
-            <span className="opacity-0 group-hover:opacity-70 text-white transition text-sm">
-              Invite
-            </span>
-            <InviteIcon />
-          </div>
+          <InviteButton />
 
           <div className="relative">
             <button

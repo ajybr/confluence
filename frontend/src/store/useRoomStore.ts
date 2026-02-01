@@ -4,6 +4,7 @@ interface Room {
   id: string;
   roomName: string;
   description: string;
+  roomCode?: string;
 }
 
 interface RoomStore {

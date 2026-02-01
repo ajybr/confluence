@@ -1,42 +1,100 @@
 import { useState } from "react";
 import useToast from "../hooks/useToast";
 import useJoinRoom from "../hooks/useJoinRoom";
+import Button from "./ui/Button";
+import FormInput from "./ui/FormInput";
+import BaseModal from "./ui/BaseModal";
+import LinkIcon from "../utils/LinkIcon";
 
-const JoinRoomModal = () => {
-  const [roomCode, setRoomCode] = useState("");
+interface JoinRoomModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const JoinRoomModal = ({ isOpen, onClose }: JoinRoomModalProps) => {
+  const [roomInput, setRoomInput] = useState("");
+  const [isLinkDetected, setIsLinkDetected] = useState(false);
   const { showToast } = useToast();
   const joinRoomMutation = useJoinRoom();
 
+  const parseRoomInput = (input: string): string => {
+    const trimmedInput = input.trim();
+    const joinPattern = /\/join\/([^/?#]+)/;
+    const match = trimmedInput.match(joinPattern);
+
+    return match ? match[1] : trimmedInput;
+  };
+
+  const detectLink = (input: string): boolean => {
+    return input.includes("/join/") && input.startsWith("http");
+  };
+
+  const handleInputChange = (value: string) => {
+    setRoomInput(value);
+    setIsLinkDetected(detectLink(value));
+  };
+
   const handleJoin = () => {
-    joinRoomMutation.mutate(roomCode);
+    const parsedCode = parseRoomInput(roomInput);
+
+    if (!parsedCode) {
+      showToast("Valid room code or link is required", "error");
+      return;
+    }
+
+    joinRoomMutation.mutate(parsedCode, {
+      onSuccess: () => {
+        onClose();
+        setRoomInput("");
+        setIsLinkDetected(false);
+      },
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleJoin();
   };
 
   return (
-    <div className="relative w-full max-w-md">
-      <input
-        className="w-full pr-24 pl-3 py-3 rounded-sm border-1 border- font-bold text-[#e9e6e1] bg-transparent"
-        type="text"
-        value={roomCode}
-        onChange={(e) => {
-          const roomCodeLength = 25;
-          if (e.target.value.length <= roomCodeLength) {
-            setRoomCode(e.target.value);
-          } else {
-            showToast(
-              `Room Codes cannot be longer than ${roomCodeLength}`,
-              "error",
-            );
-          }
-        }}
-        placeholder="Room Code"
-      />
-      <button
-        onClick={handleJoin}
-        className="absolute right-1 top-1 bottom-1 px-3 bg-gradient-to-br from-[#977DFF] to-[#F2E6EE] text-black font-semibold transition-all duration-350 rounded-sm hover:rounded-none cursor-pointer hover:bg-[#977DFF]/70"
-      >
-        Join
-      </button>
-    </div>
+    <BaseModal isOpen={isOpen} onClose={onClose} title="Join Room">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <FormInput
+          label="Room Code or Link"
+          value={roomInput}
+          onChange={handleInputChange}
+          placeholder="Room code or invite link"
+          required
+          disabled={joinRoomMutation.isPending}
+        />
+
+        {isLinkDetected && (
+          <div className="flex items-center gap-2 text-sm text-green-400">
+            <LinkIcon />
+            <span>Link detected - room code extracted</span>
+          </div>
+        )}
+
+        <div className="flex justify-end gap-2 pt-4">
+          <Button
+            onClick={onClose}
+            variant="secondary"
+            disabled={joinRoomMutation.isPending}
+          >
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            variant="gradient"
+            disabled={joinRoomMutation.isPending}
+            loading={joinRoomMutation.isPending}
+            fullWidth
+          >
+            {joinRoomMutation.isPending ? "Joining..." : "Join"}
+          </Button>
+        </div>
+      </form>
+    </BaseModal>
   );
 };
 

@@ -3,6 +3,7 @@ import LandingPage from "./pages/LandingPage";
 import Inbox from "./pages/Inbox";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
+import JoinRoomPage from "./pages/JoinRoomPage";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect } from "react";
@@ -38,7 +39,7 @@ function App() {
     )
       return;
     getUser();
-  }, []);
+  }, [getUser]);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -49,6 +50,7 @@ function App() {
               <Routes>
                 <Route element={<PrivateOnlyLayout />}>
                   <Route path="/me" element={<Inbox />} />
+                  <Route path="/join/:roomId" element={<JoinRoomPage />} />
                 </Route>
 
                 <Route element={<PublicOnlyLayout />}>

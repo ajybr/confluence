@@ -3,8 +3,8 @@ import useRoomStore from "../store/useRoomStore";
 import { connectToRoom, disconnect } from "../config/socket";
 import axios, { AxiosError } from "axios";
 import CreateRoomButton from "./CreateRoomButton";
+import JoinRoomButton from "./JoinRoomButton";
 import useToast from "../hooks/useToast";
-import JoinRoomModal from "./JoinRoomModal";
 
 type Room = {
   id: string;
@@ -43,8 +43,8 @@ const RoomList: React.FC<RoomListProps> = ({ rooms, isError, error }) => {
               <hr className="flex-grow border-gray-600" />
               <span className="mx-3">OR</span>
               <hr className="flex-grow border-gray-600" />
-            </div>{" "}
-            <JoinRoomModal />
+            </div>
+            <JoinRoomButton style="full" />
           </div>
         </div>
       </div>
@@ -55,7 +55,10 @@ const RoomList: React.FC<RoomListProps> = ({ rooms, isError, error }) => {
     <div className="col-span-3 md:col-span-2 ml-3">
       <div className="flex justify-between items-center">
         <h2 className="font-krylon text-xl mb-2 font-extralight">Rooms</h2>
-        <CreateRoomButton style="compact" />
+        <div className="flex gap-2">
+          <JoinRoomButton style="compact" />
+          <CreateRoomButton style="compact" />
+        </div>
       </div>
       <div className="border-l border-white/10 text-white/70">
         {rooms.map((room) => {

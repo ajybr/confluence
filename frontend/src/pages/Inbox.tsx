@@ -1,9 +1,44 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Chatbox from "../components/Chatbox";
 import Sidebar from "../components/Sidebar";
+import InviteModal from "../components/InviteModal";
 import useSignOut from "../hooks/useSignOut";
 import useUserStore from "../store/useUserStore";
-import { useRef, useState } from "react";
+import useRoomStore from "../store/useRoomStore";
+import { useRef, useState, useEffect } from "react";
+import { ModalProvider, useModal } from "../contexts/ModalContext";
+
+const ModalRenderer = () => {
+  const { currentModal, modalData, closeModal } = useModal();
+
+  return (
+    <>
+      {currentModal?.type === "invite" && modalData && (
+        <InviteModal
+          isOpen={true}
+          onClose={closeModal}
+          roomId={(modalData as { roomId: string }).roomId}
+          roomName={(modalData as { roomName: string }).roomName}
+          roomCode={(modalData as { roomCode: string }).roomCode}
+        />
+      )}
+    </>
+  );
+};
+
+const InboxRoomSelector = () => {
+  const location = useLocation();
+  const setSelectedRoom = useRoomStore((state) => state.setSelectedRoom);
+
+  useEffect(() => {
+    const roomToSelect = location.state?.roomToSelect;
+    if (roomToSelect) {
+      setSelectedRoom(roomToSelect);
+    }
+  }, [location.state, setSelectedRoom]);
+
+  return null;
+};
 
 const Inbox = () => {
   const user = useUserStore((state) => state.user);
@@ -28,8 +63,11 @@ const Inbox = () => {
   };
 
   return (
-    <div className="fixed inset-0 bg-[#0f0f0f] backdrop-blur-3xl">
-      <div className="col-span-1 mx-2 h-screen w-full text-slate-100">
+    <ModalProvider>
+      <div className="fixed inset-0 bg-[#0f0f0f] backdrop-blur-3xl">
+        <ModalRenderer />
+        <InboxRoomSelector />
+        <div className="col-span-1 mx-2 h-screen w-full text-slate-100">
         <div className="flex justify-between items-center">
           <div className="">
             <Link
@@ -75,6 +113,7 @@ const Inbox = () => {
         </div>
       </div>
     </div>
+    </ModalProvider>
   );
 };
 

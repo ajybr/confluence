@@ -15,7 +15,10 @@ const CreateRoomButton = ({ style }: ButtonStyleProps) => {
         >
           <CreateRoomIcon iconType={style} />
         </button>
-        {showModal && <CreateRoomModal onClose={() => setShowModal(false)} />}
+        <CreateRoomModal
+          isOpen={showModal}
+          onClose={() => setShowModal(false)}
+        />
       </div>
     );
   }
@@ -23,11 +26,12 @@ const CreateRoomButton = ({ style }: ButtonStyleProps) => {
     <div>
       <button
         onClick={() => setShowModal(true)}
-        className="cursor-pointer flex rounded-md p-2 items-center justify-center max-w-fit hover:bg-slate-600/30  hover:bg-backdrop-blur-xl"
+        className="cursor-pointer flex gap-1 rounded-md p-2 items-center justify-center max-w-fit hover:bg-slate-600/30  hover:bg-backdrop-blur-xl"
       >
-        <CreateRoomIcon iconType={style} /> Create{" "}
+        <CreateRoomIcon iconType={style} />
+        <div>Create</div>
       </button>
-      {showModal && <CreateRoomModal onClose={() => setShowModal(false)} />}
+      <CreateRoomModal isOpen={showModal} onClose={() => setShowModal(false)} />
     </div>
   );
 };

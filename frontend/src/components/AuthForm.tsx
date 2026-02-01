@@ -78,11 +78,6 @@ const AuthForm: React.FC<AuthFormProps> = ({ mode }) => {
       </Link>
       <div className="flex h-screen justify-center items-center">
         <div className=" bg-[#0f0f0f]/30 text-[#e9e6e1] backdrop-blur-md w-full z-10 max-w-md mx-auto p-4 border border-[#0f0f0f]/20 rounded-xl shadow-xl">
-          {/* 🔵 Loading bar */}
-          {/* {authMutation.isPending && ( */}
-          {/*   <div className="absolute overflow-hidden top-0 left-0 h-1 w-full bg-[#0d0e20] animate-loading" /> */}
-          {/* )} */}
-
           <h2 className="font-nebula-light text-3xl text-[#e9e6e1] w-full text-center font-semibold mb-8 p-2 capitalize">
             {mode}
           </h2>

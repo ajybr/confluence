@@ -1,8 +1,7 @@
-import "express-serve-static-core"
-declare module "express-serve-static-core" {
+declare module "express" {
   interface Request {
-    user? : { userId: string; username: string }
+    user?: { userId: string; username: string };
   }
 }
 
-export {}
+export {};
