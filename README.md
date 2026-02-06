@@ -1,54 +1,104 @@
-This is a simple broadcast chat app.
+# Confluence
 
-## Environment Variables:
-To run this project, you will need to add the following environment variables to your .env file
+A real-time broadcast chat application with room-based messaging.
 
-- Backend
+**Note:** This app uses native WebSocket connections via the `ws` library, which requires a persistent Node.js server. Vercel's serverless functions spin down after each request and cannot maintain persistent connections. If deployed to Vercel, the room page will fail to connect.
 
+## Features
+
+- Real-time messaging via WebSockets
+- Create and join chat rooms
+- User authentication with JWT
+- Message reactions and read receipts
+- Reply to messages
+- Media attachments
+- Responsive design
+
+## Tech Stack
+
+**Backend:** Node.js, Express, TypeScript, PostgreSQL, Prisma, WebSocket (`ws` library), JWT, Azure Blob Storage
+
+**Frontend:** React 19, TypeScript, Vite, Tailwind CSS, Zustand, TanStack Query, Axios, GSAP
+
+## Architecture
+
+```mermaid
+flowchart TB
+    subgraph Client["Frontend"]
+        UI[React Components]
+        State[Zustand Stores]
+        Query[TanStack Query]
+        WSClient[WebSocket Client]
+        HTTP[Axios]
+    end
+    
+    subgraph Server["Backend"]
+        Routes[REST API Routes]
+        Auth[JWT Middleware]
+        WSS[WebSocket Server]
+        Handlers[Route Handlers]
+    end
+    
+    subgraph Data["Data Layer"]
+        Prisma[Prisma ORM]
+        DB[(PostgreSQL)]
+    end
+    
+    subgraph External["External"]
+        Azure[Azure Blob Storage]
+    end
+    
+    UI --> State --> Query
+    Query --> HTTP & WSClient
+    HTTP --> Routes --> Auth --> Handlers --> Prisma --> DB
+    WSClient -.-> WSS
+    Handlers --> Azure
+```
+
+## Environment Variables
+
+**Backend:**
 ```
 JWT_SECRET=my-jwt-secret
-
 DATABASE_URL=https://my-db-url
-
 ```
 
-- Frontend
-
+**Frontend:**
 ```
 VITE_BACKEND_URL=http://my-backend-url
-
 ```
 
 ## Run Locally
 
-Clone the project
+**Prerequisites:** Node.js 18+
 
+Clone the project:
 ```bash
-  git clone https://github.com/captainskyfish/confluence
+git clone https://github.com/captainskyfish/confluence
 ```
 
-Go to the project directories and Install dependencies
-
-- Backend
+Install dependencies:
 ```bash
-  cd confluence/backend
-  npm install
-```
-- Frontend
+# Backend
+cd confluence/backend
+npm install
 
-
-```bash
-  cd confluence/frontend
-  npm install
+# Frontend
+cd confluence/frontend
+npm install
 ```
 
-Start the server
-
+Start the servers:
 ```bash
-// backend/ 
-  npm run dev
+# Backend
+cd confluence/backend
+npm run dev
 
-// frontend/
-  npm run dev
+# Frontend
+cd confluence/frontend
+npm run dev
 ```
 
+**Deployment options:**
+- Use a VPS (Azure, DigitalOcean, AWS EC2, Railway, Render, etc.) that supports persistent processes
+- Or refactor to use a third-party real-time service (Pusher, Ably, Supabase Realtime) that works with serverless 
