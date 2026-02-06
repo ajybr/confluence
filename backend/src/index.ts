@@ -16,6 +16,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:4173",
   "https://zealous-hill-073977c00.2.azurestaticapps.net",
+  "https://confluence-two.vercel.app/"
 ];
 
 app.use(
