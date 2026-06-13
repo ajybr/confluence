@@ -36,18 +36,12 @@ export default function ChatInput() {
       replyToId: null,
     };
 
+    setMessage("");
     sendMessage(socketMessage);
-    createMessageMutation.mutate(
-      {
-        roomId: selectedRoom?.id,
-        content: content,
-      },
-      {
-        onSuccess: () => {
-          setMessage("");
-        },
-      },
-    );
+    createMessageMutation.mutate({
+      roomId: selectedRoom?.id,
+      content: content,
+    });
   };
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
