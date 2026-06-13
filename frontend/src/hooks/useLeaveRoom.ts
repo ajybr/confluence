@@ -3,6 +3,7 @@ import leaveRoom from "../api/leaveRoom";
 import useMessageStore from "../store/useMessageStore";
 import useRoomStore from "../store/useRoomStore";
 import useToast from "./useToast";
+import axios from "axios";
 
 const useLeaveRoom = () => {
   const { showToast } = useToast();
@@ -18,7 +19,8 @@ const useLeaveRoom = () => {
       clearMessages();
       showToast("Left the room successfully", "success");
     },
-    onError: () => {
+    onError: (error) => {
+      if (axios.isAxiosError(error) && (!error.response || error.response.status >= 500)) return;
       showToast("Failed to leave the room", "error");
     },
   });

@@ -20,9 +20,13 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    const status = error?.response?.status;
-    if (status && status >= 500) {
-      const errMes = error?.response?.data?.errMes ?? "Something went wrong.";
+    if (!error.response) {
+      useToastStore.getState().showToast(
+        "Sorry, our servers are down. Please try again later.",
+        "error",
+      );
+    } else if (error.response.status >= 500) {
+      const errMes = error.response?.data?.errMes ?? "Sorry, our servers are down. Please try again later.";
       useToastStore.getState().showToast(errMes, "error");
     }
     return Promise.reject(error);

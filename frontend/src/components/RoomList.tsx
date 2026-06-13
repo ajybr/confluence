@@ -25,9 +25,10 @@ const RoomList: React.FC<RoomListProps> = ({ rooms, isError, error }) => {
 
   useEffect(() => {
     if (isError && axios.isAxiosError(error)) {
+      if (!error.response) return;
       const errorMsg =
         (error.response?.data as { errMes?: string })?.errMes ||
-        "Something went wrong.";
+        "Sorry, our servers are down. Please try again later.";
       showToast(errorMsg, "error");
     }
   }, [isError, error, showToast]);

@@ -16,10 +16,11 @@ const useCreateRoom = () => {
     },
     onError: (error) => {
       if (axios.isAxiosError(error)) {
-        const errorMsg = error.response?.data?.errMes ?? "Unknown error";
+        if (!error.response || error.response.status >= 500) return;
+        const errorMsg = error.response?.data?.errMes ?? "Sorry, our servers are down. Please try again later.";
         showToast(errorMsg, "error");
       } else {
-        showToast("Unexpected error", "error");
+        showToast("Sorry, our servers are down. Please try again later.", "error");
       }
     },
   });

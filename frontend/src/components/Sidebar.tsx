@@ -34,7 +34,7 @@ const Sidebar: React.FC = () => {
     return (
       <div className="col-span-3 md:col-span-2 ml-3">
         <h2 className="font-krylon text-xl font-extralight">Rooms</h2>
-        <div className="text-red-800 max-w-fit">Error loading rooms</div>
+        <div className="text-red-800 max-w-fit">Sorry, our servers are down. Please try again later.</div>
       </div>
     );
   }

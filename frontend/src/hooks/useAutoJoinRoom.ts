@@ -40,7 +40,7 @@ const useAutoJoinRoom = () => {
       const errorMessage = 
         (err as { response?: { data?: { errMes?: string } } })?.response?.data?.errMes || 
         (err as { message?: string })?.message || 
-        "Failed to join room. Please try again.";
+        "Sorry, our servers are down. Please try again later.";
       setError(errorMessage);
       options.onError?.(errorMessage);
     }

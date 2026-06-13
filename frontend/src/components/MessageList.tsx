@@ -35,7 +35,7 @@ const MessageList = () => {
 
   if (isLoading)
     return <div className="text-center text-white">Loading messages...</div>;
-  if (error) return <div className="text-red-500">Failed to load messages</div>;
+  if (error) return <div className="text-red-500">Sorry, our servers are down. Please try again later.</div>;
 
   // Group messages by date
   const groupedByDate = combinedMessages.reduce<

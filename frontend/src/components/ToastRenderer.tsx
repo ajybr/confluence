@@ -17,7 +17,7 @@ export const ToastRenderer = ({ children }: { children: ReactNode }) => {
             }`}
           >
             {toast.type === "success" ? <CheckBadgeIcon /> : <CrossBadgeIcon />}
-            {toast.message}
+            <span className="font-semibold">{toast.message}</span>
           </div>
         ))}
       </div>
