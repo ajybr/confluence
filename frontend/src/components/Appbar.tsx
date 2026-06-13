@@ -11,15 +11,12 @@ export const Appbar = () => {
       </Link>
       <div className="flex items-center gap-6">
         <div className="font-semibold invisible md:visible text-[#e9e6e1]/40 text-sm flex flex-row gap-4">
-          <Link to="" className="hover:text-[#ffffe0] hover:underline">
+          <a href="#why-us" className="hover:text-[#ffffe0] hover:underline">
             Why us?
-          </Link>
-          <Link to="" className="hover:text-[#ffffe0] hover:underline">
-            Privacy
-          </Link>
-          <Link to="" className="hover:text-[#ffffe0] hover:underline">
+          </a>
+          <a href="#testimonials" className="hover:text-[#ffffe0] hover:underline">
             Testimonials
-          </Link>
+          </a>
         </div>
         <Link
           to="/signin"

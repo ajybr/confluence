@@ -17,12 +17,12 @@ const LandingPage = () => {
     <div>
       <div className="relative max-w-full overflow-x-hidden bg-[#0f0f0f] min-h-screen z-10 mb-[250px] lg:mb-[350px] pb-50 rounded-b-4xl">
         <Appbar />
-        <div className="grid justify-center grid-flow-row lg:grid-flow-col gap-25 grid-rows-2 lg:grid-rows-1 lg:w-4/5 lg:mx-auto pt-[150px] lg:px-12 lg:grid-cols-2">
-          <div className="flex lg:block lg:col-span-1 flex-col justify-center items-center">
+        <div className="grid grid-flow-row lg:grid-flow-col grid-rows-2 lg:grid-rows-1 gap-20 lg:h-screen lg:items-center lg:grid-cols-2 xl:grid-cols-[1fr_820px]">
+          <div className="flex lg:block lg:col-span-1 flex-col justify-center items-center xl:pl-[20%]">
             <div className="text-transparent text-center md:w-[50%] lg:w-full lg:text-left fade-up bg-gradient-to-br from-[#ffffe0]/70 to-[#ffffe0] bg-clip-text font-krylon pl-0 font-bold text-wrap text-7xl/snug p-5">
               Where conversations come to life
             </div>
-            <div className="text-[#e9e6e1] text-center lg:text-left fade-up pl-0 w-4/5 font-semibold text-wrap text-sm/normal p-2">
+            <div className="text-[#e9e6e1] text-center lg:text-left fade-up pl-0 w-4/5 font-semibold text-wrap text-md/normal p-2">
               Build private rooms, invite friends, and experience seamless,
               secure real-time chat—right from your browser.
             </div>
@@ -74,13 +74,13 @@ const LandingPage = () => {
               </div>
             </div>
           </div>
-          <div className="relative fade-up mx-3 lg:mx-0 lg:block flex col-span-1 lg:right-0 lg:w-[750px] w-fit h-[70%] lg:h-[550px] overflow-hidden rounded-t-4xl lg:rounded-tr-none bg-gradient-to-tr from-[#9796F0] to-[#FBC7D4]">
-            <div className="relative w-full h-full max-w-full md:h-[400px] lg:w-[800px] lg:hover:translate-x-2 lg:h-[600px] lg:hover:translate-y-2 transition-transform ease-in-out duration-400 shadow-lg shadow-[#9796F0]">
+          <div className="relative fade-up mx-3 lg:mx-0 lg:block flex col-span-1 lg:w-[820px] w-fit h-[70%] lg:h-[600px] overflow-hidden rounded-t-4xl lg:rounded-tr-none bg-gradient-to-tr from-[#9796F0] to-[#FBC7D4]">
+            <div className="relative w-full h-full max-w-full md:h-[400px] lg:w-[1020px] lg:hover:translate-x-2 lg:h-[740px] lg:hover:translate-y-2 transition-transform ease-in-out duration-400 shadow-lg shadow-[#9796F0]">
               {/* lg:hover:-translate-y-2  transition-transform duration-300 ease-in-out"> */}
               <img
                 src="/images/landingPageimg.PNG"
                 alt="landingPageimg.jpeg"
-                className="lg:object-cover overflow-hidden lg:object-top-left lg:w-full lg:h-full p-1 lg:p-2 lg:pt-1 lg:pl-1 rounded-4xl"
+                className="lg:object-cover lg:object-top-left overflow-hidden lg:w-full lg:h-full p-1 lg:pr-0 lg:pt-1 lg:pl-1 rounded-tl-4xl"
               />
               <div className="absolute bottom-0 w-full h-[3%] pointer-events-none bg-gradient-to-r from-[#9796F0] to-[#FBC7D4]" />
               <div className="absolute bottom-0 w-full h-[40%] lg:h-[50%] pointer-events-none bg-gradient-to-t from-[#9796F0] to-transparent blur" />

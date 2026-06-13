@@ -71,7 +71,7 @@ const testimonials = [
 
 export const TestimonialsSection = () => {
   return (
-    <section className="bg-[#0f0f0f] py-16 px-4 md:px-40">
+    <section id="testimonials" className="bg-[#0f0f0f] py-16 px-4 md:px-40">
       <h2 className="text-[#e9e6e1] text-semibold text-5xl text-center mb-12">
         Our Happy Customers
       </h2>

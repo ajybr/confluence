@@ -36,6 +36,7 @@ export default function StackedScrollText() {
 
   return (
     <section
+      id="why-us"
       ref={sectionRef}
       className="h-[100vh] relative flex flex-col justify-center tracking-wide lg:tracking-wider font-krylon rounded-4xl overflow-hidden leading-10 lg:leading-20 bg-cover bg-center items-center bg-[#0f0f0f] text-[#e9e6e1] font-bold  text-3xl lg:text-5xl"
       style={{ backgroundImage: "url('/images/last-supper.jpg')" }}
