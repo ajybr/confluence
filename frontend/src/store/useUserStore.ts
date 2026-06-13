@@ -11,7 +11,9 @@ type User = {
 type UserStore = {
   user: User | null;
   loading: boolean;
+  token: string | null;
   setUser: (user: User) => void;
+  setToken: (token: string) => void;
   getUser: () => Promise<void>;
   clearUser: () => void;
 };
@@ -19,8 +21,10 @@ type UserStore = {
 const useUserStore = create<UserStore>((set) => ({
   user: null,
   loading: true,
+  token: null,
   setUser: (user) => set({ user }),
-  clearUser: () => set({ user: null }),
+  setToken: (token) => set({ token }),
+  clearUser: () => set({ user: null, token: null }),
   getUser: async () => {
     try {
       const user = await getCurrentUser();

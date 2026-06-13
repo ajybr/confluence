@@ -5,14 +5,19 @@ import { BACKEND_URL } from "./backendUrl";
 
 let socket: WebSocket | null = null;
 const connectToRoom = async (roomId: string) => {
-  const url = new URL(BACKEND_URL);
-  const host = url.host;
-  const protocol = url.protocol === "https:" ? "wss" : "ws";
   const token = await getWsToken();
 
-  socket = new WebSocket(
-    `${protocol}://${host}/ws?roomId=${roomId}&token=${token}`,
-  );
+  let wsUrl: string;
+  if (BACKEND_URL) {
+    const url = new URL(BACKEND_URL);
+    const protocol = url.protocol === "https:" ? "wss" : "ws";
+    wsUrl = `${protocol}://${url.host}/ws?roomId=${roomId}&token=${token}`;
+  } else {
+    const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+    wsUrl = `${protocol}://${window.location.host}/ws?roomId=${roomId}&token=${token}`;
+  }
+
+  socket = new WebSocket(wsUrl);
   socket.onopen = () => {
     // console.log(`connected to room ${roomId}`); //remove log
   };

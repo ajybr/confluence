@@ -22,6 +22,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ mode }) => {
   const navigate = useNavigate();
   const authMutation = useAuthMutation();
   const setUser = useUserStore((state) => state.setUser);
+  const setToken = useUserStore((state) => state.setToken);
 
   useEffect(() => {
     if (!bioTouched && mode === "signup") {
@@ -45,6 +46,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ mode }) => {
               username: data.user.username,
               bio: data.user.bio,
             });
+            setToken(data.token);
             showToast(
               mode === "signin"
                 ? `Welcome back, ${username}.`
