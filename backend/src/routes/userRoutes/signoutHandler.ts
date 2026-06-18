@@ -6,6 +6,14 @@ const signoutHandler: RequestHandler = (_: Request, res: Response) => {
       httpOnly: true,
       secure: true,
       sameSite: "none",
+      path: "/",
+      partitioned: true,
+    });
+    res.clearCookie("jwt", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      path: "/",
     });
 
     res.status(200).json({ mes: "Signout Successful!" });

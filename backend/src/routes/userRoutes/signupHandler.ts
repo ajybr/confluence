@@ -39,9 +39,12 @@ const signupHandler: RequestHandler = async (req: Request, res: Response) => {
           httpOnly: true,
           secure: true,
           sameSite: "none",
+          maxAge: 7 * 24 * 60 * 60 * 1000,
+          partitioned: true,
         })
         .json({
           user: { id: user.id, username: user.username, bio: user.username },
+          token,
           success: true,
           message: `Signed up as ${user.username}`,
         });
